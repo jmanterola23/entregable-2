@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulador de Partidos</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>Organizador de Partidos</h1>
+
+  <section>
+    <h2>Crear Partido</h2>
+    <form id="matchForm">
+      <input type="text" id="matchName" placeholder="Nombre del Partido" required>
+      <input type="number" id="matchCapacity" placeholder="Capacidad" required>
+      <input type="number" id="matchCost" placeholder="Costo Total ($)" required>
+      <button type="submit">Crear Partido</button>
+    </form>
+  </section>
+
+  <section id="matchesContainer"></section>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
