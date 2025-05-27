@@ -1,38 +1,367 @@
+/* Globales */
+*::after,
+*::before,
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+    background: url('https://images.unsplash.com/photo-1570042225833-fcae993bf703?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Orbitron', sans-serif; /* Fuente con estilo Star Wars */
+    color: #fff;
+  }
+  
+  header, .container-items, .carousel-container, .container-cart-products {
+    background: rgba(0, 0, 0, 0.6); /* Fondo negro translúcido para contraste */
+    border-radius: 10px;
+    padding: 20px;
   }
   
   h1, h2 {
-    color: #333;
+    text-align: center;
+    color: #ffe81f; /* Amarillo Star Wars */
+    text-shadow: 1px 1px 2px #000;
   }
   
-  form input {
-    margin: 5px;
+
+.icon-cart{
+    width: 40px;
+    height: 40px;
+    stroke: #000;
+}
+
+.icon-cart:hover{
+    cursor: pointer;
+}
+
+img{
+    max-width: 100%;
+}
+
+/* Header */
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0 40px 0;
+}
+
+.container-icon{
+    position: relative;
+}
+
+.count-products{
+    position: absolute;
+    top: 55%;
+    right: 0;
+
+    background-color: #000;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+#contador-productos{
+    font-size: 12px;
+}
+
+.container-cart-products{
+    position: absolute;
+    top: 50px;
+    right: 0;
+
+    background-color: #fff;
+    width: 400px;
+    z-index: 1;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.20);
+    border-radius: 10px;
+    
+}
+
+.cart-product{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.20);
+
+}
+
+.info-cart-product{
+    display: flex;
+    justify-content: space-between;
+    flex: 0.8;
+}
+
+.titulo-producto-carrito{
+    font-size: 20px;
+}
+
+.precio-producto-carrito{
+    font-weight: 700;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.cantidad-producto-carrito{
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.icon-close{
+    width: 25px;
+    height: 25px;
+}
+
+.icon-close:hover{
+    stroke: red;
+    cursor: pointer;
+}
+
+.cart-total{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    gap: 20px;
+}
+
+.cart-total h3{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.total-pagar{
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.hidden-cart{
+    display: none;
+}
+
+
+.container-add-product {
+    margin: 40px 0;
+    padding: 20px;
+    border: 2px dashed #000;
+    border-radius: 10px;
+  }
+  
+  .container-add-product form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .container-add-product input {
     padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
   }
   
-  button {
-    padding: 8px 12px;
-    margin-top: 5px;
+  .container-add-product button {
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
     cursor: pointer;
   }
   
-  .card {
-    border: 1px solid #aaa;
-    padding: 10px;
-    margin-top: 15px;
+  .container-add-product button:hover {
+    background-color: #333;
   }
   
-  ul {
-    padding-left: 20px;
+
+
+.recommendations {
+    margin: 20px 0;
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+  }
+  .recommendation-item {
+    margin: 10px 0;
+    padding: 5px;
+  }
+  
+
+.container-items{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.item{
+    border-radius: 10px;
+}
+
+.item:hover{
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.20);
+}
+
+.item img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    transition: all .5s;
+}
+
+.item figure{
+    overflow: hidden;
+}
+
+.item:hover img{
+    transform: scale(1.2);
+}
+
+.info-product{
+    padding: 15px 30px;
+    line-height: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.price{
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.info-product button{
+    border: none;
+    background: none;
+    background-color: #000;
+    color: #fff;
+    padding: 15px 10px;
+    cursor: pointer;
+}
+
+.cart-empty{
+    padding: 20px;
+    text-align: center;
+}
+
+
+
+.container-add-product {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 100;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  }
+  
+  .close-form {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+
+.hidden{
+    display: none;
+}
+
+/* Carruse */
+
+
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* centra horizontalmente */
+    gap: 10px;
+    margin: 30px auto;
+  }
+  
+  .carousel {
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: flex; /* nuevo: para alinear imágenes */
+  }
+  
+  .carousel img {
+    flex: 0 0 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+
+.carousel img.active {
+  opacity: 1;
+}
+
+/* Flechas más visibles */
+.prev, .next {
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
+    z-index: 1;
+  }
+  
+  .prev:hover, .next:hover {
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+
+
+/* Estilos boton Agregar */
+
+button, .btn-add-cart {
+    background-color: #ffe81f;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #ffe81f;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  button:hover, .btn-add-cart:hover {
+    background-color: #000;
+    color: #ffe81f;
   }
 
-  .paid {
-  color: green;
-}
-.unpaid {
-  color: red;
-}
 
+/*Carrito icono */
+
+.icon-cart {
+    width: 40px;
+    height: 40px;
+    stroke: #ffe81f;
+    cursor: pointer;
+  }
+  
+  
   
