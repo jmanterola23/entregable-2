@@ -184,7 +184,7 @@ productsList.addEventListener('click', e => {
       quantity: 1,
       title: productElement.querySelector('h2').textContent,
       price: productElement.querySelector('.price').textContent,
-      image: productElement.parentElement.querySelector('img').src  // 🟩 GUARDA LA IMAGEN
+      image: productElement.parentElement.querySelector('img').src
     };
     
     const exists = allProducts.some(p => p.title === product.title);
