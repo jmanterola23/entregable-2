@@ -1,6 +1,11 @@
 // declaracion Tienda y carrito
 let storeProducts = [];
 let allProducts = [];
+let currentIndex = 0;
+
+console.log("stored",storeProducts);  // ✅ Debería mostrar los productos guardados
+console.log("all", allProducts);  // ✅ Debería mostrar los productos guardados
+
 
 const productsList = document.querySelector('.container-items');
 const rowProduct = document.querySelector('.row-product');
@@ -22,24 +27,24 @@ btnCart.addEventListener('click', () => {
 // boton abrir formulario
 const btnToggleForm = document.getElementById('btn-toggle-form');
 const containerAddProduct = document.querySelector('.container-add-product');
+const formAddProduct = document.getElementById('form-add-product');
+const inputName = document.getElementById('product-name');
+const inputPrice = document.getElementById('product-price');
+const inputImage = document.getElementById('product-image');
+const inputImageFile = document.getElementById('product-image-file');
+
 
 btnToggleForm.addEventListener('click', () => {
   containerAddProduct.classList.toggle('hidden');
 });
 
 document.querySelector('.close-form').addEventListener('click', () => {
-  if (confirm('¿Estás seguro que quieres cerrar sin agregar el producto?')) {
-    containerAddProduct.classList.add('hidden');
-  }
+  containerAddProduct.classList.add('hidden');
 });
 
 
 // Agregar producto
-const formAddProduct = document.getElementById('form-add-product');
-const inputName = document.getElementById('product-name');
-const inputPrice = document.getElementById('product-price');
-const inputImage = document.getElementById('product-image');
-const inputImageFile = document.getElementById('product-image-file');
+
 
 formAddProduct.addEventListener('submit', e => {
   e.preventDefault();
@@ -71,16 +76,7 @@ function agregarProducto(name, price, image) {
   renderCarousel();
 }
 
-const savedProducts = localStorage.getItem('storeProducts');
-if (savedProducts) {
-  storeProducts = JSON.parse(savedProducts);
-  storeProducts.forEach(product => renderProduct(product));
-  renderCarousel();
-}
 
-
-
-/* Render productos */
 function renderProduct(product) {
   const container = document.createElement('div');
   container.classList.add('item');
@@ -96,20 +92,40 @@ function renderProduct(product) {
 }
 
 
+const savedProducts = localStorage.getItem('storeProducts');
+if (savedProducts) {
+  storeProducts = JSON.parse(savedProducts);
+  storeProducts.forEach(product => renderProduct(product));
+  renderCarousel();
+}
+
+/* Carga (f5) */
+const savedCart = localStorage.getItem('cartProducts');
+if (savedCart) {
+  allProducts = JSON.parse(savedCart);
+  updateCart();
+}
 
 
-/*======================= Renderizar carrusel ========================
+
+
+
+
+
+
+
+/*======================= Renderizar carousel ========================
 
 
 ======================================================================= */
 
 
 
+
 function renderCarousel() {
-  const carousel = document.querySelector('.carousel');
+  const carousel = document.querySelector('.carousel'); // ✅ nombre correcto
   carousel.innerHTML = '';
   const lastThreeProducts = storeProducts.slice(-3);
-
   lastThreeProducts.forEach(product => {
     const img = document.createElement('img');
     img.src = product.image;
@@ -117,13 +133,9 @@ function renderCarousel() {
     carousel.appendChild(img);
   });
 
-  //Carrusel
   currentIndex = 0;
   updateCarousel();
 }
-
-
-let currentIndex = 0;
 
 function updateCarousel() {
   const images = document.querySelectorAll('.carousel img');
@@ -133,7 +145,8 @@ function updateCarousel() {
   });
 }
 
-// Flechas carrusel
+
+// Flechas carusel
 document.querySelector('.prev').addEventListener('click', () => {
   const images = document.querySelectorAll('.carousel img');
   currentIndex = (currentIndex - 1 + images.length) % images.length;
@@ -146,7 +159,7 @@ document.querySelector('.next').addEventListener('click', () => {
   updateCarousel();
 });
 
-// Carrusel andante
+// carousel andante
 setInterval(() => {
   const images = document.querySelectorAll('.carousel img');
   if (images.length > 0) {
@@ -156,28 +169,7 @@ setInterval(() => {
 }, 3000);
 
 
-function showImageAtIndex(index) {
-  const images = document.querySelectorAll('.carousel img');
-  images.forEach(img => img.classList.remove('active'));
-  images[index].classList.add('active');
-}
 
-document.querySelector('.prev').addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + storeProducts.length) % storeProducts.length;
-  showImageAtIndex(currentIndex);
-});
-
-document.querySelector('.next').addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % storeProducts.length;
-  showImageAtIndex(currentIndex);
-});
-
-setInterval(() => {
-  if (storeProducts.length > 0) {
-    currentIndex = (currentIndex + 1) % storeProducts.length;
-    showImageAtIndex(currentIndex);
-  }
-}, 3000);
 
 
 /* ======================== Carrito ========================= 
@@ -188,25 +180,27 @@ setInterval(() => {
 productsList.addEventListener('click', e => {
   if (e.target.classList.contains('btn-add-cart')) {
     const productElement = e.target.parentElement;
-    const infoProduct = {
+    const product = {
       quantity: 1,
       title: productElement.querySelector('h2').textContent,
-      price: productElement.querySelector('p').textContent,
+      price: productElement.querySelector('.price').textContent,
+      image: productElement.parentElement.querySelector('img').src  // 🟩 GUARDA LA IMAGEN
     };
-
-    const exists = allProducts.some(p => p.title === infoProduct.title);
+    
+    const exists = allProducts.some(p => p.title === product.title);
     if (exists) {
-      allProducts.forEach(p => {
-        if (p.title === infoProduct.title) p.quantity++;
+      allProducts = allProducts.map(p => {
+        if (p.title === product.title) p.quantity++;
+        return p;
       });
     } else {
-      allProducts.push(infoProduct);
+      allProducts.push(product);
     }
-
-    getStarWarsRecommendations(infoProduct.title);
-    showCart();
+    updateCart();
   }
 });
+
+// Eliminar
 
 rowProduct.addEventListener('click', e => {
   if (e.target.classList.contains('icon-close')) {
@@ -214,13 +208,13 @@ rowProduct.addEventListener('click', e => {
     const title = product.querySelector('p').textContent;
     const index = allProducts.findIndex(p => p.title === title);
     if (index !== -1) allProducts.splice(index, 1);
-    showCart();
+    updateCart();
   }
 });
 
 
 /* Listar carrito */
-function showCart() {
+function updateCart() {
   if (!allProducts.length) {
     cartEmpty.classList.remove('hidden');
     rowProduct.classList.add('hidden');
@@ -240,57 +234,32 @@ function showCart() {
     containerProduct.classList.add('cart-product');
     containerProduct.innerHTML = `
       <div class="info-cart-product">
-        <span class="cantidad-producto-carrito">${product.quantity}</span>
+      <span class="cantidad-producto-carrito">${product.quantity}</span>
+        <img src="${product.image}" alt="producto" style="width: 40px; height: auto; border-radius: 5px; margin-right: 10px;">
         <p class="titulo-producto-carrito">${product.title}</p>
         <span class="precio-producto-carrito">${product.price}</span>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg" class="icon-close" viewBox="0 0 24 24">
-        <path d="M6 18L18 6M6 6l12 12" />
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+        stroke-width="1.5" stroke="currentColor" class="icon-close">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12" />
       </svg>`;
+
     rowProduct.appendChild(containerProduct);
 
-    total += parseInt(product.quantity * product.price.slice(1));
+    const precioNumero = parseFloat(product.price.replace('$', ''));
+    total += product.quantity * precioNumero;
     totalOfProducts += product.quantity;
   });
 
-  valorTotal.innerText = `$${total}`;
-  countProducts.innerText = totalOfProducts;
+  valorTotal.textContent = `$${total}`;
+  countProducts.textContent = totalOfProducts;
 
   localStorage.setItem('cartProducts', JSON.stringify(allProducts));
 }
 
-/* Carga (f5) */
-const savedCart = localStorage.getItem('cartProducts');
-if (savedCart) {
-  allProducts = JSON.parse(savedCart);
-  showCart();
-}
 
 
-/* Recomendaciones Star Wars */
-function getStarWarsRecommendations(query) {
-  fetch(`https://swapi.py4e.com/api/people/?search=${query}`)
-    .then(response => response.json())
-    .then(data => {
-      let container = document.querySelector('.recommendations');
-      if (!container) {
-        container = document.createElement('div');
-        container.classList.add('recommendations');
-        document.body.appendChild(container);
-      }
-      container.innerHTML = '<h3>Recomendados de Star Wars</h3>';
-      data.results.slice(0, 3).forEach(personaje => {
-        const div = document.createElement('div');
-        div.classList.add('recommendation-item');
-        div.innerHTML = `
-          <p>Nombre: ${personaje.name}</p>
-          <p>Altura: ${personaje.height} cm</p>
-          <p>Género: ${personaje.gender}</p>`;
-        container.appendChild(div);
-      });
-    })
-    .catch(err => console.error('Error con la API SWAPI:', err));
-}
 
 
 

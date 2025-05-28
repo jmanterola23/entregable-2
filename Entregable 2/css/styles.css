@@ -73,6 +73,7 @@ header{
 }
 
 .container-cart-products{
+    color:#000;
     position: absolute;
     top: 50px;
     right: 0;
@@ -84,6 +85,11 @@ header{
     border-radius: 10px;
     
 }
+.cart-product p,
+.cart-product span {
+  color: #000;
+}
+
 
 .cart-product{
     display: flex;
