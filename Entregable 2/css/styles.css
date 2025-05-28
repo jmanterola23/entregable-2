@@ -1,4 +1,3 @@
-/* Globales */
 *::after,
 *::before,
 *{
@@ -10,22 +9,22 @@
 body {
     background-image: url('../images/193734-ya-puedes-descargar-recreacion-mas-real-mos-eisley-star-wars.jpg');
     background-size: cover;
-    background-position: center center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita repeticiones */
-    background-attachment: fixed; /* Para efecto de fondo fijo */
-    font-family: 'Orbitron', sans-serif; /* Fuente con estilo Star Wars */
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Orbitron', sans-serif;
     color: #fff;
   }
   
   header, .container-items, .carousel-container, .container-cart-products {
-    background: rgba(0, 0, 0, 0.6); /* Fondo negro translúcido para contraste */
+    background: rgba(0, 0, 0, 0.6);
     border-radius: 10px;
     padding: 20px;
   }
   
   h1, h2 {
     text-align: center;
-    color: #ffe81f; /* Amarillo Star Wars */
+    color: #ffe81f;
     text-shadow: 1px 1px 2px #000;
   }
   
@@ -44,7 +43,6 @@ img{
     max-width: 100%;
 }
 
-/* Header */
 header{
     display: flex;
     justify-content: space-between;
@@ -219,10 +217,10 @@ header{
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(0, 0, 0, 0.4); /* Opcional: para contraste */
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   overflow: hidden;
-  width: 220px; /* controla el ancho máximo */
+  width: 220px;
 }
 
 
@@ -256,7 +254,7 @@ header{
 .item figure img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* 👈 Cambia cover por contain */
+  object-fit: contain;
   object-position: center;
   border-radius: 10px 10px 0 0;
 }
@@ -337,13 +335,12 @@ header{
     display: none;
 }
 
-/* Carruse */
 
 
 .carousel-container {
     display: flex;
     align-items: center;
-    justify-content: center; /* centra horizontalmente */
+    justify-content: center;
     gap: 10px;
     margin: 30px auto;
   }
@@ -355,7 +352,7 @@ header{
     border-radius: 10px;
     position: relative;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    display: flex; /* nuevo: para alinear imágenes */
+    display: flex;
   }
   
   .carousel img {
@@ -370,7 +367,6 @@ header{
   opacity: 1;
 }
 
-/* Flechas más visibles */
 .prev, .next {
     background: rgba(0, 0, 0, 0.4);
     color: #fff;
@@ -386,9 +382,6 @@ header{
     background: rgba(0, 0, 0, 0.6);
   }
   
-
-
-/* Estilos boton Agregar */
 
 button, .btn-add-cart {
     background-color: #ffe81f;
@@ -407,8 +400,6 @@ button, .btn-add-cart {
     color: #ffe81f;
   }
 
-
-/*Carrito icono */
 
 .icon-cart {
     width: 40px;

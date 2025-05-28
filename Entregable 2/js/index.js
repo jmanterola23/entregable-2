@@ -1,10 +1,7 @@
-// declaracion Tienda y carrito
 let storeProducts = [];
 let allProducts = [];
 let currentIndex = 0;
 
-console.log("stored",storeProducts);  // ✅ Debería mostrar los productos guardados
-console.log("all", allProducts);  // ✅ Debería mostrar los productos guardados
 
 
 const productsList = document.querySelector('.container-items');
