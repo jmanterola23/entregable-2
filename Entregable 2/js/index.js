@@ -83,6 +83,13 @@ function renderProduct(product) {
       <h2>${product.name}</h2>
       <p class="price">${product.price}</p>
       <button class="btn-add-cart">Añadir al carrito</button>
+      <button class="btn-delete-product" data-name="${product.name}" aria-label="Eliminar">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+          stroke-width="1" stroke="currentColor" class="icon-trash">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
     </div>
   `;
   productsList.appendChild(container);
@@ -197,7 +204,30 @@ productsList.addEventListener('click', e => {
   }
 });
 
-// Eliminar
+
+//Eliminar Producto 
+
+function deleteProduct(name) {
+  storeProducts = storeProducts.filter(product => product.name !== name);
+  localStorage.setItem('storeProducts', JSON.stringify(storeProducts));
+  productsList.innerHTML = '';
+  storeProducts.forEach(product => renderProduct(product));
+  renderCarousel();
+}
+
+productsList.addEventListener('click', e => {
+  const deleteButton = e.target.closest('.btn-delete-product');
+  if (deleteButton) {
+    const name = deleteButton.getAttribute('data-name');
+    deleteProduct(name);
+  }
+});
+
+
+
+
+
+// Eliminar item carrito
 
 rowProduct.addEventListener('click', e => {
   if (e.target.classList.contains('icon-close')) {

@@ -8,9 +8,11 @@
 <body>
 
   <header>
-    <h1>Tienda figuras de Mos Eisley</h1>
+    <h1 style="display: flex; align-items: center; gap: 10px;">
+      <img src="../Entregable 2/images/mos_eisley_cropped.png" alt="Logo Star Wars" class="icon-store";>
+      Tienda figuras de Mos Eisley
+    </h1>
   
-    <button id="btn-toggle-form">Agregar Nuevo Producto</button>
   
     <div class="container-add-product hidden">
       <button class="close-form">X</button>
@@ -42,16 +44,26 @@
         </div>
         <p class="cart-empty">El carrito está vacío</p>
       </div>
+      
     </div>
   </header>
 
-  <div class="container-items" style="margin-bottom: 30px;"></div>
-
-  <div class="carousel-container" style="margin-top: 30px;">
+  <div style="margin-top: 30px;"> 
+    <h1>Ultimos productos agregados</h1>
+  </div>
+  <div class="carousel-container" >
     <button class="prev">&#10094;</button>
     <div class="carousel"></div>
     <button class="next">&#10095;</button>
   </div>
+
+  <div class="container-items" style="margin-bottom: 50px;"></div>
+
+  <div class="add-product">
+    <button id="btn-toggle-form">Agregar Nuevo Producto</button>
+  </div>
+
+  
 
   <script src="./js/index.js"></script>
 </body>
